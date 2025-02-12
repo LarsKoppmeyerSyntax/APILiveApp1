@@ -7,4 +7,7 @@ data class Meal(
     @Json(name = "strMeal")
     val name : String,
 
+    @Json(name = "strMealThumb")
+    val image : String,
+
 )

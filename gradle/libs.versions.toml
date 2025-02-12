@@ -13,6 +13,7 @@ kotlinSerialization = "1.6.3"
 moshiVersion = "1.15.0"
 retrofitVersion = "2.11.0"
 loggingInterceptor = "4.9.3"
+coilCompose = "3.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -35,6 +36,9 @@ moshi = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "mo
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofitVersion" }
 converterMoshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofitVersion" }
 logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "loggingInterceptor" }
+coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coilCompose" }
+coil-network-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coilCompose" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

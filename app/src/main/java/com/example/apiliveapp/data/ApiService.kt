@@ -35,7 +35,7 @@ interface APIService {
 
 
     @GET("random.php")
-    suspend fun getRandomMeal() : List<MealsResponse>
+    suspend fun getRandomMeal() : MealsResponse
 
 
 

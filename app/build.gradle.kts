@@ -67,4 +67,6 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converterMoshi)
     implementation(libs.logging.interceptor)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
 }

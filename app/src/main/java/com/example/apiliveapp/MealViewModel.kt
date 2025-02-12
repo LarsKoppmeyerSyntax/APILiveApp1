@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.apiliveapp.data.MealsApi
 import com.example.apiliveapp.data.model.Meal
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -27,7 +28,7 @@ class MealViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             try {
                 val response = apiService.getRandomMeal()
-                val newMeal = response.first().meals.first()
+                val newMeal = response.meals.first()
                 _randomMeal.value = newMeal
 
             } catch (ex : Exception) {
