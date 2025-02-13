@@ -9,19 +9,27 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil3.compose.SubcomposeAsyncImage
+import com.example.apiliveapp.ui.MealList
 import com.example.apiliveapp.ui.theme.APILiveAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -31,16 +39,8 @@ class MainActivity : ComponentActivity() {
         setContent {
 
             val viewModel: MealViewModel = viewModel()
-            val randomMeal by viewModel.randomMeal.collectAsState()
-
-            val context = LocalContext.current
-
-
-            LaunchedEffect(randomMeal) {
-                Toast.makeText(context, "Neues Meal geladen", Toast.LENGTH_SHORT).show()
-
-            }
-
+            val mealList by viewModel.searchedMeals.collectAsState()
+            var searchTerm by remember { mutableStateOf("") }
 
             APILiveAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
@@ -49,50 +49,21 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(innerPadding),
-                        verticalArrangement = Arrangement.Center,
+                        verticalArrangement = Arrangement.SpaceBetween,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
 
-                        randomMeal?.let { meal ->
-                            Text(meal.name)
+                        MealList(mealList)
 
-                            SubcomposeAsyncImage(
-                                model = meal.image ,
-                                contentDescription = null,
-                                onLoading = {
-                                    Log.d("AsyncImage", "Image loading...")
-                                },
-                                onError = { state ->
-                                    Toast.makeText(
-                                        context,
-                                        "Error loading Image",
-                                        Toast.LENGTH_LONG
-                                    ).show()
-                                },
-                                onSuccess = { state ->
-                                    Log.d("AsyncImage", "Image loaded successfully")
-                                },
-                                loading = {
+                        TextField(
+                            modifier = Modifier.fillMaxWidth().height(48.dp).padding(bottom = 32.dp).padding(horizontal = 4.dp),
+                            value = searchTerm,
+                            onValueChange = {
+                                searchTerm = it
+                                viewModel.searchMeals(searchTerm)
+                            }
+                        )
 
-                                    Text("Bild lädt gerade")
-
-//                                    CircularProgressIndicator(
-//                                        Modifier.scale(.5f)
-//                                    )
-                                },
-                                error = {
-                                    Column(
-                                        horizontalAlignment = Alignment.CenterHorizontally
-                                    ) {
-                                        Text("Fehler beim Laden des Bilds")
-                                        Icon(
-                                            painter = painterResource(R.drawable.baseline_error_24),
-                                            null
-                                        )
-                                    }
-                                }
-                            )
-                        }
                     }
                 }
             }

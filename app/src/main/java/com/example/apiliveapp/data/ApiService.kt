@@ -8,6 +8,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 const val BASE_URL = "https://www.themealdb.com/api/json/v1/1/"
 
@@ -36,6 +37,9 @@ interface APIService {
 
     @GET("random.php")
     suspend fun getRandomMeal() : MealsResponse
+
+    @GET("search.php")
+    suspend fun searchMeals(@Query("s") searchTerm: String) : MealsResponse
 
 
 

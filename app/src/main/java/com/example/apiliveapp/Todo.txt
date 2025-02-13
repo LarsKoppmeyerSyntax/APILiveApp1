@@ -1,0 +1,14 @@
+
+
+Endziel: Funktionierende Suche nach Gerichten
+
+UI:
+ - Suchfeld
+ - LazyColumn Ausgabe
+(done) ViewModel : "Brücke schlagen" :
+  - (done) ViewModel Suchfunktion
+  - (done) Daten an UI exposen
+(done) API:
+ - Query schreiben
+
+
